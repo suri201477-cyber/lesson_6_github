@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Счёт {{ invoice_id }}</title>
+    <style>
+        @font-face {
+            font-family: 'InvoiceFont';
+            src: url('{{ font_url }}');
+        }
+
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'InvoiceFont', sans-serif;
+            font-size: 12pt;
+            color: #1a1a1a;
+            line-height: 1.5;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid #2563eb;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 22pt;
+            color: #2563eb;
+        }
+
+        .meta {
+            text-align: right;
+        }
+
+        .meta p {
+            margin: 4px 0;
+        }
+
+        .parties {
+            margin-bottom: 24px;
+        }
+
+        .parties h2 {
+            font-size: 11pt;
+            text-transform: uppercase;
+            color: #64748b;
+            margin: 0 0 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 24px;
+        }
+
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 8px 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #f1f5f9;
+            font-weight: bold;
+        }
+
+        td.num {
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .total-row td {
+            font-weight: bold;
+            background: #eff6ff;
+        }
+
+        .footer {
+            margin-top: 32px;
+            font-size: 10pt;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Счёт на оплату</h1>
+        <div class="meta">
+            <p><strong>№:</strong> {{ invoice_id }}</p>
+            <p><strong>Дата:</strong> {{ date }}</p>
+        </div>
+    </div>
+
+    <div class="parties">
+        <h2>Плательщик</h2>
+        <p><strong>{{ customer_name }}</strong></p>
+        <p>{{ customer_address }}</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Наименование</th>
+                <th>Кол-во</th>
+                <th>Цена, ₽</th>
+                <th>Сумма, ₽</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ item.name }}</td>
+                <td class="num">{{ item.quantity }}</td>
+                <td class="num">{{ item.price | format_money }}</td>
+                <td class="num">{{ item.sum | format_money }}</td>
+            </tr>
+            {% endfor %}
+            <tr class="total-row">
+                <td colspan="4">Итого к оплате</td>
+                <td class="num">{{ total | format_money }} ₽</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="footer">
+        Документ сформирован автоматически. Счёт № {{ invoice_id }} от {{ date }}.
+    </div>
+</body>
+</html>

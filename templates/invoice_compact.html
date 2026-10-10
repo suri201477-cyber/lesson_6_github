@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Чек {{ invoice_id }}</title>
+    <style>
+        @font-face {
+            font-family: 'InvoiceFont';
+            src: url('{{ font_url }}');
+        }
+
+        @page {
+            size: A4;
+            margin: 1.5cm;
+        }
+
+        body {
+            font-family: 'InvoiceFont', sans-serif;
+            font-size: 11pt;
+        }
+
+        h1 {
+            font-size: 16pt;
+            border-bottom: 1px solid #000;
+            padding-bottom: 8px;
+        }
+
+        .info {
+            margin: 16px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border-bottom: 1px solid #ccc;
+            padding: 6px 4px;
+        }
+
+        th {
+            text-align: left;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .total {
+            margin-top: 16px;
+            font-size: 13pt;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Чек № {{ invoice_id }}</h1>
+    <div class="info">
+        <div>Дата: {{ date }}</div>
+        <div>Клиент: {{ customer_name }}</div>
+        <div>Адрес: {{ customer_address }}</div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Товар / услуга</th>
+                <th class="right">Кол-во</th>
+                <th class="right">Сумма</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td class="right">{{ item.quantity }}</td>
+                <td class="right">{{ item.sum | format_money }} ₽</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <p class="total">Итого: {{ total | format_money }} ₽</p>
+</body>
+</html>

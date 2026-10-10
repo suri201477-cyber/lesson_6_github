@@ -1,0 +1,34 @@
+[
+  {
+    "invoice_id": "INV-001",
+    "date": "2024-01-15",
+    "customer_name": "ООО «Рога и Копыта»",
+    "customer_address": "г. Москва, ул. Примерная, д. 1",
+    "items": [
+      {"name": "Консультация", "quantity": 1, "price": 5000, "sum": 5000},
+      {"name": "Разработка ПО", "quantity": 10, "price": 3000, "sum": 30000}
+    ],
+    "total": 35000
+  },
+  {
+    "invoice_id": "INV-002",
+    "date": "2024-02-01",
+    "customer_name": "ИП Иванов Пётр Сергеевич",
+    "customer_address": "г. Санкт-Петербург, пр. Невский, д. 25",
+    "items": [
+      {"name": "Аудит документов", "quantity": 1, "price": 15000, "sum": 15000}
+    ],
+    "total": 15000
+  },
+  {
+    "invoice_id": "INV-003",
+    "date": "2024-03-10",
+    "customer_name": "АО «ТехноПром»",
+    "customer_address": "г. Казань, ул. Баумана, д. 12",
+    "items": [
+      {"name": "Техническая поддержка", "quantity": 3, "price": 8000, "sum": 24000},
+      {"name": "Обучение персонала", "quantity": 2, "price": 12000, "sum": 24000}
+    ],
+    "total": 48000
+  }
+]
